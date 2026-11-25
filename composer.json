@@ -1,0 +1,41 @@
+{
+    "name": "gsteel/harvest-kimai-migrator",
+    "description": "A bunch of PHP for copying data from Harvest (Fuck Bending Spoons) to Kimai via their respective APIs",
+    "homepage": "https://github.com/gsteel/harvest-kimai-migrator",
+    "license": "MIT",
+    "type": "project",
+    "config": {
+        "allow-plugins": {
+            "php-http/discovery": true
+        },
+        "sort-packages": true
+    },
+    "require": {
+        "php": "~8.5.0",
+        "fig/http-message-util": "^1.1",
+        "jolicode/harvest-php-api": "9.1.0",
+        "laminas/laminas-diactoros": "^3.10",
+        "php-http/client-common": "^2.7",
+        "php-http/curl-client": "2.4.0",
+        "php-http/discovery": "^1.20",
+        "php-standard-library/dict": "^6.4",
+        "php-standard-library/file": "^6.4",
+        "php-standard-library/filesystem": "^6.4",
+        "php-standard-library/iter": "^6.4",
+        "php-standard-library/json": "^6.4",
+        "php-standard-library/math": "^6.4",
+        "php-standard-library/regex": "^6.4",
+        "php-standard-library/str": "^6.4",
+        "php-standard-library/type": "^6.4",
+        "php-standard-library/vec": "^6.4",
+        "psr/container": "^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "HM\\": "src/"
+        }
+    },
+    "require-dev": {
+        "carthage-software/mago": "^1.61"
+    }
+}

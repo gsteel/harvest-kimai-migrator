@@ -1,0 +1,166 @@
+#:schema https://mago.carthage.software/1.61.0/schema.json
+# Welcome to Mago!
+# For full documentation, see https://mago.carthage.software/1.61.0/en/tools/overview/
+version = "1"
+php-version = "8.5.0"
+
+[source]
+workspace = "."
+paths = ["src/"]
+includes = ["vendor"]
+excludes = []
+
+[source.glob]
+literal-separator = true
+
+[formatter]
+preset = "default"
+print-width = 120
+null-type-hint = "null_pipe_last"
+empty-line-after-control-structure = true
+empty-line-before-dangling-comments = false
+
+inline-empty-control-braces = false
+inline-empty-closure-braces = false
+inline-empty-function-braces = false
+inline-empty-method-braces = false
+inline-empty-constructor-braces = false
+inline-empty-classlike-braces = false
+inline-empty-anonymous-class-braces = false
+
+method-chain-breaking-style = "next-line"
+first-method-chain-on-new-line = true
+preserve-breaking-member-access-chain = true
+
+#preserve-breaking-member-access-chain = true
+preserve-breaking-argument-list = true
+preserve-breaking-array-like = true
+preserve-breaking-parameter-list = true
+preserve-breaking-attribute-list = true
+preserve-breaking-conditional-expression = true
+preserve-breaking-condition-expression = true
+
+space-after-logical-not-unary-prefix-operator = true
+space-before-closure-parameter-list-parenthesis = true
+space-before-arrow-function-parameter-list-parenthesis = true
+
+empty-line-before-return = true
+
+line-before-binary-operator = true
+indent-binary-expression-continuation = true
+
+align-assignment-like = false
+
+[linter]
+baseline = "mago.lint.baseline.toml"
+integrations = ["psl"]
+excludes = []
+
+[linter.rules]
+literal-named-argument = { enabled = false }
+halstead = { enabled = false }
+kan-defect = { enabled = false }
+
+# There are no literal passwords and this gets things wrong based on variable/constant names
+no-literal-password = {
+    enabled = false,
+}
+
+# Too many methods in test cases:
+too-many-methods = {
+    threshold = 15,
+    enabled = true, exclude = ["test/"]
+}
+
+# General
+# It's fine to swallow exceptions when you know they are coming
+no-empty-catch-clause = { enabled = false }
+
+# PSL Preference Settings
+# I don't want to use PSL's DateTime replacement - Happy with DateTimeImmutable
+psl-datetime = { enabled = false }
+# Ignore usage of PSL Random functions, random_int is used in tests
+psl-randomness-functions = { enabled = true, exclude = ["test/"] }
+# Disable Psl requirements individually so we can migrate to them if it's necessary by turning them on one-by-one
+psl-string-functions = { enabled = true }
+psl-regex-functions = { enabled = true }
+psl-array-functions = { enabled = true }
+psl-math-functions = { enabled = true }
+psl-sleep-functions = { enabled = true }
+psl-output = { enabled = true }
+psl-data-structures = { enabled = true }
+
+# PHPUnit Style
+assertion-style = {style = "self"}
+
+# Don't require descriptions for all assertions:
+assert-description = { enabled = false }
+
+excessive-parameter-list = {
+    enabled = true,
+    exclude = [],
+    constructor-threshold = 10,
+    threshold = 5,
+}
+
+# There are all kinds of reasons why you may accept a boolean parameter in a method
+no-boolean-flag-parameter = { enabled = false }
+
+
+no-literal-namespace-string = { enabled = true, exclude = [] }
+prefer-first-class-callable = { enabled = true }
+prefer-early-continue = { enabled = true }
+prefer-early-return = { enabled = true }
+prefer-static-closure = { enabled = true }
+yoda-conditions = { enabled = true, mode = "deny" }
+no-fully-qualified-global-class-like = { enabled = true }
+no-fully-qualified-global-constant = { enabled = true }
+no-fully-qualified-global-function = { enabled = true, namespaced = true }
+no-iterator-to-array-in-foreach = { enabled = true }
+no-is-null = { enabled = true }
+no-null-property-init = { enabled = true }
+no-redundant-else = { enabled = true }
+no-assign-in-argument = { enabled = true }
+no-assign-in-condition = { enabled = true }
+no-dead-store = { enabled = true }
+no-redundant-variable = { enabled = true }
+no-unused-closure-capture = { enabled = true }
+strict-behavior = { enabled = true }
+no-parameter-shadowing = {enabled = true }
+require-namespace = {enabled = true }
+no-alias-function = {enabled = true, level = "error" }
+ambiguous-function-call = {enabled = true, level = "error" }
+
+[analyzer]
+baseline = "mago.sa.baseline.toml"
+plugins = [
+    "psl",
+    "psr-container",
+]
+find-unused-definitions = true
+find-unused-expressions = true
+analyze-dead-code = true
+memoize-properties = true
+check-throws = true
+find-overly-wide-throw-types = true
+check-dead-catch = false
+check-throw-type-covariance = false
+unchecked-exception-classes = []
+check-missing-override = true
+find-unused-parameters = true
+strict-list-index-checks = true
+strict-array-index-existence = true
+allow-array-truthy-operand = false
+allow-operator-overloading = false
+no-boolean-literal-comparison = true
+check-missing-type-hints = true
+register-super-globals = true
+
+# Exception Hierarchies to ignore
+unchecked-exceptions = [
+    "Error",
+    "LogicException",
+    "Psl\\Exception\\ExceptionInterface",
+    "Psr\\Container\\ContainerExceptionInterface",
+    "DateInvalidTimeZoneException",
+]
